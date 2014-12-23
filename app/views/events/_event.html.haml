@@ -1,0 +1,14 @@
+= content_tag :tr, id: "event-#{event._id}" do
+  %tr
+    %td 
+      = event.referer_URL
+    %td 
+      = event.domain
+    %td
+      = event.name
+    %td
+      = event.property1
+    %td
+      = event.property2
+    %td
+      = event.created_on

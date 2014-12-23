@@ -1,0 +1,38 @@
+%html
+  %head
+    %title 
+      Event Tracker Dashboard
+    =stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    =javascript_include_tag 'application', 'data-turbolinks-track' => true
+    =csrf_meta_tags
+  %body
+    %div.container
+      %ul.nav.nav-tabs
+        -if user_signed_in?
+          %li
+            =link_to "Dashboard", @root
+        %div.pull-right.user-info
+          -if current_user  
+            Hello #{link_to (current_user.email), current_user} !
+            = link_to edit_user_registration_path, class: 'btn btn-primary btn-sm' do
+              %span.glyphicon.glyphicon-user
+            =link_to destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-sm' do
+              %span.glyphicon.glyphicon-log-out
+          -else
+            #{link_to "Sign In", new_user_session_path} or #{link_to "Sign Up", new_user_registration_path}
+      -if flash[:notice]
+        %div.alert.alert-success
+          %button(type="button" class="close" data-dismiss="alert")
+            &times
+          = flash[:notice]
+      -elsif flash[:error]
+        %div.alert.alert-danger
+          %button(type="button" class="close" data-dismiss="alert")
+            &times
+          = flash[:error]
+      -elsif flash[:alert]
+        %div.alert.alert-warning
+          %button(type="button" class="close" data-dismiss="alert")
+            &times;
+          = flash[:alert]
+      =yield
